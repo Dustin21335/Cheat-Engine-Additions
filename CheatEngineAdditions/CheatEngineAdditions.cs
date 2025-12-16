@@ -142,30 +142,34 @@ namespace CheatEngineAdditions
                             break
                         end
                     end
+                    local addressesToRemove = {{}}
                     for i = foundList.Items.Count - 1, 0, -1 do
                         local item = foundList.Items[i]   
                         if item then
                             local value = tonumber(item.SubItems[0])
-                            if type == ""invalid"" and (not value or value ~= value or math.abs(value) > 1e100) then
-                                item.Selected = true
+                            local select = false
+                            if type == ""invalid"" and (not value or value ~= value or string.match(item.SubItems[0], ""[eE]"")) then
+                                select = true
                             elseif value then
                                 if type == ""positive"" and value > 0 then
-                                    item.Selected = true
+                                    select = true
                                 elseif type == ""negative"" and value < 0 then
-                                    item.Selected = true
+                                    select = true
                                 elseif type == ""zero"" and value == 0 then
-                                    item.Selected = true
+                                    select = true
                                 elseif filterType == 'decimals' and value % 1 ~= 0 then
-                                    item.Selected = true
+                                    select = true
                                 elseif filterType == 'nodecimals' and value % 1 == 0 then
-                                    item.Selected = true
-                                else
-                                    item.Selected = false
+                                    select = true
                                 end
-                            else
-                                item.Selected = false
+                            end
+                            if select then
+                                table.insert(addressesToRemove, i)
                             end
                         end
+                    end
+                    for _, i in ipairs(addressesToRemove) do
+                        foundList.Items[i].Selected = true
                     end
                     menuItemRemove.DoClick()
                 ");
@@ -175,7 +179,7 @@ namespace CheatEngineAdditions
                 local menu = MainForm.Menu
                 local cheatEngineAdditionsTab = createMenuItem(menu)
                 cheatEngineAdditionsTab.Caption='Cheat Engine Additions'
-                menu.Items.insert(MainForm.miHelp.MenuIndex, cheatEngineAdditionsTab)
+                menu.Items.insert(MainForm.miHelp.MenuIndex + 1, cheatEngineAdditionsTab)
                 local memoryView = getMemoryViewForm()
                 local disassemblerView = memoryView.DisassemblerView
                 local popupMenu = disassemblerView.PopupMenu
@@ -299,6 +303,7 @@ namespace CheatEngineAdditions
 
         public override bool DisablePlugin()
         {
+
             return true;
         }
     }

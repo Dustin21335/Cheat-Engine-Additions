@@ -70,10 +70,6 @@ namespace CheatEngineAdditions
                 sdk.lua.PushInteger(luaState, address);
                 sdk.lua.PushInteger(luaState, length);
                 sdk.lua.Call(luaState, 2, intLength);
-                sdk.lua.GetGlobal("ReadBytes");
-                sdk.lua.PushInteger(luaState, address);
-                sdk.lua.PushInteger(luaState, length);
-                sdk.lua.Call(luaState, 2, intLength);
                 byte[] bytes = new byte[length];
                 for (int i = 0; i < length; i++) bytes[i] = (byte)sdk.lua.ToInteger(luaState, -(intLength) + i);
                 sdk.lua.Pop(luaState, (int)length);

@@ -262,6 +262,8 @@ namespace CESDK
         public void PushCEObject(IntPtr L, IntPtr ceobject) { LuaPushClassInstance(L, ceobject); }
         public void PushCEObject(IntPtr ceobject) { LuaPushClassInstance(State, ceobject); }
 
+        public void PushNil() { lua_pushnil(State); }
+        public void PushNil(IntPtr L) { lua_pushnil(L); }
 
         public Boolean IsFunction(IntPtr L, int idx) { return lua_type(L, idx) == LUA_TFUNCTION; }
         public Boolean IsFunction(int idx) { return lua_type(State, idx) == LUA_TFUNCTION; }

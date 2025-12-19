@@ -2,9 +2,7 @@
 
 namespace CESDK
 {
-    /// <summary>
-    /// Base class for implementing objects inherited from TObject  (just a destructor in this case)
-    /// </summary>
+    #pragma warning disable CS0649
     class CEObjectWrapper
     {        
         protected CESDKLua lua = CESDK.currentPlugin.sdk.lua;

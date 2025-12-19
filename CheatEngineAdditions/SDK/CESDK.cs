@@ -8,6 +8,7 @@ using System.Reflection;
 
 
 //CE SDK wrapper.  You usually don't need to be here, so close your eyes and walk away
+#pragma warning disable CS8618
 
 namespace CESDK
 {

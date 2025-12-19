@@ -394,6 +394,7 @@ namespace CESDK
             return _GetLuaState(); 
         }
 
+        #pragma warning disable CS8618
         public CESDKLua(CESDK sdk)
         {
             //init lua
@@ -457,6 +458,6 @@ namespace CESDK
 
             this.sdk = sdk;
         }
-
+        #pragma warning restore CS8618
     }
 }

@@ -30,6 +30,8 @@ namespace CheatEngineAdditions
             }
         }
 
+        public string Version = "1.0.1";
+
         public override bool EnablePlugin()
         {
             try
@@ -293,6 +295,11 @@ namespace CheatEngineAdditions
                     Process.Start("explorer.exe", TempPath);
                     return 1;
                 });
+                sdk.lua.Register("GetVersion", (IntPtr luaState) =>
+                {
+                    sdk.lua.PushString(luaState, Version);
+                    return 1;
+                });
                 sdk.lua.DoString(@"
                     local menu = MainForm.Menu
                     local cheatEngineAdditionsTab = createMenuItem(menu)
@@ -373,6 +380,11 @@ namespace CheatEngineAdditions
                     popupMenu.Items.insert(insertIndex, copyRelativeAddressMenuItem) 
                     popupMenu.Items.insert(insertIndex, refineSignatureMenuItem)
                     popupMenu.Items.insert(insertIndex, generateSignatureMenuItem)
+
+                    local versionMenuItem = createMenuItem(popup)
+                    versionMenuItem.Caption = ""Version "" .. GetVersion()
+                    versionMenuItem.Enabled = false
+                    cheatEngineAdditionsTab.add(versionMenuItem)
                 
                     local clearPositiveNumbersMenuItem = createMenuItem(menu)
                     clearPositiveNumbersMenuItem.Caption='Clear Positive Numbers';

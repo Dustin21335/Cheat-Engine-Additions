@@ -1,8 +1,5 @@
-﻿using CESDK;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Text;
-using CheatEngineSDK = CESDK.CESDK;
 
 namespace CheatEngineAdditions.Utils
 {

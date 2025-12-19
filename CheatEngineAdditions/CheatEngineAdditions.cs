@@ -431,7 +431,8 @@ namespace CheatEngineAdditions
                     local saveProcessIconMenuItem = createMenuItem(menu)
                     saveProcessIconMenuItem.Caption='Save Process Icon';
                     saveProcessIconMenuItem.OnClick=function(menuItem)
-                        if not IsAttached() then
+                        local pid = getOpenedProcessID()
+                        if pid and pid == 0 then
                             showMessage('Not attached to a process! Failed to get process icon')
                             return
                         end
